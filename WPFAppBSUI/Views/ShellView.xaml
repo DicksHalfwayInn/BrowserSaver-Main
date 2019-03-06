@@ -1,0 +1,184 @@
+﻿<Window x:Class="WPFAppBSUI.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFAppBSUI.Views"
+        xmlns:src="clr-namespace:WPFAppBSUI"
+        xmlns:VM="clr-namspace:WPFAppBSUI.ViewModels"
+        xmlns:vc="clr-namespace:WPFAppBSUI.ValueConverters"
+        xmlns:Cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        mc:Ignorable="d"
+        Title="ShellView" Height="450" Width="800">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <vc:ColumnSpanConverter x:Key="ColumnSpanConverter" />
+
+    </Window.Resources>
+    <Grid>
+        <!--Column Definitions-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <!--Row Definitions-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+            <DataGrid ItemsSource="{Binding CurrentWebPages}" AutoGenerateColumns="False"
+                      SelectedIndex="0"
+                   MaxWidth="600"
+                  VerticalAlignment="Top"
+                  Grid.ColumnSpan="{Binding WebPageDGExpanded, Converter={StaticResource ColumnSpanConverter}, FallbackValue=1}"
+                  SelectedItem="{Binding SelectedWebPage, FallbackValue=CurrentWebPages[0]}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Web Address" Binding="{Binding Address}" 
+                                    />
+                    <DataGridTextColumn Width="50" Header="Description" Binding="{Binding Description}" />
+
+                </DataGrid.Columns>
+
+
+
+            </DataGrid>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Height="20" Text="      Tags" />
+                <ListBox ItemsSource="{Binding Path=SelectedWebPageTags}" 
+                         MinWidth="100" MinHeight="50">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Tagline}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+
+
+
+
+                </ListBox>
+            </StackPanel>
+
+        </StackPanel>
+        <!--I need to TODO have the horizontal scrollbar visible and working -->
+        <!-- DataGrid holding the WebPages information-->
+
+
+        <!--<UniformGrid Grid.Column="3" Grid.Row="2" x:Name="SelectedWebPageTags" />-->
+
+
+
+
+
+        <!--<Grid Grid.Column="4" Grid.Row="2">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding SelectedWebPageTags}" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                            <TextBlock Text="{Binding Tagline}" />
+                            </Grid>
+                        </DataTemplate>
+                        
+                    </ItemsControl.ItemTemplate>
+                   
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>-->
+
+
+
+
+        <!--DataGrid holding the WebPages tags-->
+
+
+
+
+
+
+        <!--Button to show 'Add WebPage textblocks'-->
+        <Grid Grid.Row="2" Grid.Column="1"
+              >
+            <StackPanel Orientation="Vertical" >
+                <StackPanel Orientation="Horizontal" 
+                   Grid.Column="1" Grid.Row="2">
+
+                    <Button Content="Add WebPage"
+                x:Name="AddWebPageButton" 
+                Height="20"/>
+                    <!--Button to Hide 'Add WebPage textblocks'-->
+
+                    <Button Content="Cancel Add WebPage"
+                x:Name="DontAddWebPageButton" 
+                Height="20"/>
+
+                </StackPanel>
+                <!-- grid that is shown after the add new webpage button is pushed -->
+
+                <StackPanel Visibility="{Binding Path=TextBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+              Grid.Column="1" Grid.Row="6" Grid.RowSpan="4">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                            <TextBlock Text="WebPageAddress:  " />
+
+
+                            <TextBox Width="180"
+                x:Name="AddedWebPageAddress" />
+
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                            <TextBlock Text="Description:" />
+
+                            <TextBox  Width="230"
+                x:Name="AddedWebPageDescription" />
+
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Tag:  " />
+                            <Button Content="Add Tag" />
+                        </StackPanel>
+                        <DataGrid Grid.Row="2" ColumnWidth="*"
+                  x:Name="AddedWebPageTags" >
+                            <DataGrid.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Tagline}" />
+                                </DataTemplate>
+                            </DataGrid.ItemTemplate>
+                        </DataGrid>
+                        <Button Grid.Row="3" Content="Save New Webpage"
+                        x:Name="SaveNewWebpage" />
+                    </Grid>
+
+
+
+
+
+
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+
+        <Cef:ChromiumWebBrowser Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="6"
+            Address="{Binding SelectedWebPageAddress}">
+        </Cef:ChromiumWebBrowser>
+        <!--<WebBrowser Grid.Column="2" Grid.Row="11" x:Name="Browser" 
+                   src:WebBrowserHelper.BindableSource="{Binding SelectedWebPageAddress}"
+                    />-->
+    </Grid>
+</Window>

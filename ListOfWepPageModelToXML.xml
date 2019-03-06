@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ArrayOfWepPageModel xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WepPageModel>
+    <Address>web 1</Address>
+    <Description>web page test 1</Description>
+    <Tags>
+      <TagModel>
+        <Tagline>test</Tagline>
+      </TagModel>
+      <TagModel>
+        <Tagline>wpf</Tagline>
+      </TagModel>
+      <TagModel>
+        <Tagline>1</Tagline>
+      </TagModel>
+    </Tags>
+  </WepPageModel>
+  <WepPageModel>
+    <Address>web 2</Address>
+    <Description>yada</Description>
+    <Tags>
+      <TagModel>
+        <Tagline>yada yada</Tagline>
+      </TagModel>
+      <TagModel>
+        <Tagline>web 2 yada</Tagline>
+      </TagModel>
+    </Tags>
+  </WepPageModel>
+  <WepPageModel>
+    <Address>web 3</Address>
+    <Description>yada 3</Description>
+    <Tags />
+  </WepPageModel>
+  <WepPageModel>
+    <Tags />
+  </WepPageModel>
+</ArrayOfWepPageModel>
