@@ -154,6 +154,7 @@
                         </StackPanel>
                         <DataGrid Grid.Row="2" ColumnWidth="*"
                   x:Name="AddedWebPageTags" >
+                            
                             <DataGrid.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=Tagline}" />

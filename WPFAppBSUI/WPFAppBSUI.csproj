@@ -101,6 +101,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="ThisIsATest.xaml.cs">
+      <DependentUpon>ThisIsATest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValueConverters\ColumnSpanConverter.cs" />
     <Compile Include="ValueConverters\YesNoToBooleanConverter.cs" />
     <Compile Include="ViewModels\ShellTabbedViewModel.cs" />
@@ -151,6 +154,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ThisIsATest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShellTabbedView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
